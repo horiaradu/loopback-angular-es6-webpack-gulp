@@ -1,0 +1,66 @@
+// Core variables and mixins
+@node-modules-path: '../../node_modules';
+@bootstrap-path: '@{node-modules-path}/bootstrap/less';
+@font-awesome-path: '@{node-modules-path}/font-awesome/less';
+@font-awesome-animation-path: '@{node-modules-path}/font-awesome-animation/dist';
+
+@import "@{bootstrap-path}/variables.less";
+@import "@{bootstrap-path}/mixins.less";
+
+// Reset and dependencies
+@import "@{bootstrap-path}/normalize.less";
+//@import "@{bootstrap-path}/print.less";
+@import "@{bootstrap-path}/glyphicons.less";
+
+// Core CSS
+@import "@{bootstrap-path}/scaffolding.less";
+@import "@{bootstrap-path}/type.less";
+@import "@{bootstrap-path}/code.less";
+@import "@{bootstrap-path}/grid.less";
+@import "@{bootstrap-path}/tables.less";
+@import "@{bootstrap-path}/forms.less";
+@import "@{bootstrap-path}/buttons.less";
+
+// Components
+@import "@{bootstrap-path}/component-animations.less";
+@import "@{bootstrap-path}/dropdowns.less";
+@import "@{bootstrap-path}/button-groups.less";
+@import "@{bootstrap-path}/input-groups.less";
+@import "@{bootstrap-path}/navs.less";
+@import "@{bootstrap-path}/navbar.less";
+@import "@{bootstrap-path}/breadcrumbs.less";
+@import "@{bootstrap-path}/pagination.less";
+@import "@{bootstrap-path}/pager.less";
+@import "@{bootstrap-path}/labels.less";
+@import "@{bootstrap-path}/badges.less";
+@import "@{bootstrap-path}/jumbotron.less";
+@import "@{bootstrap-path}/thumbnails.less";
+@import "@{bootstrap-path}/alerts.less";
+@import "@{bootstrap-path}/progress-bars.less";
+@import "@{bootstrap-path}/media.less";
+@import "@{bootstrap-path}/list-group.less";
+@import "@{bootstrap-path}/panels.less";
+@import "@{bootstrap-path}/responsive-embed.less";
+@import "@{bootstrap-path}/wells.less";
+@import "@{bootstrap-path}/close.less";
+
+// Components w/ JavaScript
+@import "@{bootstrap-path}/modals.less";
+@import "@{bootstrap-path}/tooltip.less";
+@import "@{bootstrap-path}/popovers.less";
+@import "@{bootstrap-path}/carousel.less";
+
+// Utility classes
+@import "@{bootstrap-path}/utilities.less";
+@import "@{bootstrap-path}/responsive-utilities.less";
+
+@import "@{font-awesome-path}/font-awesome.less";
+
+// Font awesome animations
+@import (inline) "@{font-awesome-animation-path}/font-awesome-animation.css";
+
+// we need to change font-awesome and bootstrap font paths
+@fa-font-path: "~font-awesome/fonts";
+@icon-font-path: "~bootstrap/fonts/";
+@local-assets-base: "~assets/";
+@local-assets-images: "@{local-assets-base}images/";

@@ -1,0 +1,16 @@
+{
+  "extends": "../.jshintrc",
+  "browser": true,
+  "node": true,
+  "esversion": 6,
+  "globals": {
+    "export": false,
+    "angular": false,
+    "require": false,
+    "jQuery": false,
+    "$": false,
+    "console": false,
+    "moment": false,
+    "module": true
+  }
+}

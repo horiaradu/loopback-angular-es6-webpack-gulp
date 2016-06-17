@@ -1,0 +1,10 @@
+{
+  "memory": {
+    "name": "memory",
+    "connector": "memory"
+  },
+  "mysql": {
+    "name": "mysql",
+    "connector": "memory"
+  }
+}

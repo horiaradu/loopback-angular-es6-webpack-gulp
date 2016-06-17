@@ -1,0 +1,21 @@
+{
+  "memory": {
+    "name": "memory",
+    "connector": "memory"
+  },
+  "mail": {
+    "name": "mail",
+    "defaultForType": "mail",
+    "connector": "mail"
+  },
+  "mysql": {
+    "host": "localhost",
+    "port": 3306,
+    "database": "db_name",
+    "username": "root",
+    "password": "root",
+    "name": "mysql",
+    "connector": "mysql",
+    "collation": "utf8_general_ci"
+  }
+}

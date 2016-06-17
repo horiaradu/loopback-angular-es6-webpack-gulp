@@ -1,0 +1,17 @@
+{
+  "initial:before": {
+    "loopback#favicon": {},
+    "loopback#logger": {
+      "params": {
+        "format": "combined"
+      }
+    }
+  },
+  "final:after": {
+    "loopback#errorHandler": {
+      "params": {
+        "includeStack": true
+      }
+    }
+  }
+}

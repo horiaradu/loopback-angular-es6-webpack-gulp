@@ -1,0 +1,41 @@
+{
+  "name": "BaseTypeModel",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "BaseTypeValidator": true,
+    "DisableStream": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "length": 20,
+      "mysql": {
+        "dataType": "VARCHAR",
+        "dataLength": 20,
+        "nullable": "N"
+      }
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$unauthenticated",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "WRITE",
+      "principalType": "ROLE",
+      "principalId": "viewer",
+      "permission": "DENY"
+    }
+  ],
+  "methods": {}
+}
