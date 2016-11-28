@@ -1,1 +1,1 @@
-module.exports = require(process.cwd() + '/server/server');
+module.exports = require('./server/server');

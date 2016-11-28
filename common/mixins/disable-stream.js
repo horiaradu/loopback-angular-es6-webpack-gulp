@@ -1,4 +1,4 @@
-module.exports = function(Model) {
+module.exports = (Model) => {
   Model.disableRemoteMethod('createChangeStream', true);
 };
 

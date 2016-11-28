@@ -1,13 +1,13 @@
-var MySQL = require('loopback-connector-mysql').MySQL;
+const MySQL = require('loopback-connector-mysql').MySQL;
 
 // Handle tables and column names as snake case
-var cachedDbName = {};
-MySQL.prototype.dbName = function (name) {
-  if (cachedDbName[name]) {
-    return cachedDbName[name];
-  } else {
-    return cachedDbName[name] = name.replace(/\.?([A-Z]+)/g, function (x, y) {
-      return '_' + y.toLowerCase();
-    }).replace(/^_/, '');
+const cachedDbName = {};
+MySQL.prototype.dbName = (name) => {
+  if (!cachedDbName[name]) {
+    cachedDbName[name] = name
+      .replace(/\.?([A-Z]+)/g, (x, y) => `_${y.toLowerCase()}`)
+      .replace(/^_/, '');
   }
+
+  return cachedDbName[name];
 };

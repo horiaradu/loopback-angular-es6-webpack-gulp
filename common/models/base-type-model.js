@@ -1,3 +1,3 @@
-module.exports = function(BaseTypeModel) {
+module.exports = (BaseTypeModel) => {
 
 };

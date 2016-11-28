@@ -1,9 +1,0 @@
-{
-  "extends": "../.jshintrc",
-  "node": true,
-  "globals": {
-    "require": false,
-    "console": false,
-    "angular": true
-  }
-}

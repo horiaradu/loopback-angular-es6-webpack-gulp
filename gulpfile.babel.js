@@ -1,51 +1,44 @@
-'use strict';
-
-import gulp     from 'gulp';
-import path     from 'path';
+import gulp from 'gulp';
+import path from 'path';
 import rimraf from 'rimraf';
 import del from 'del';
 import eslint from 'gulp-eslint';
-
 import Karma from 'karma';
 import mocha from 'gulp-mocha';
 import babelRegister from 'babel-core/register';
 import istanbul from 'gulp-istanbul';
-import {Instrumenter} from 'isparta';
+import { Instrumenter } from 'isparta';
 
+import plumber from 'gulp-plumber';
+import exit from 'gulp-exit';
 import runSequence from 'run-sequence';
 
-const client = 'client',
-  server = 'server',
-  common = 'common',
-  output = 'build',
-  coverageServer = 'coverage/server',
-  coverageClient = 'coverage/client';
+const client = 'client';
+const server = 'server';
+const common = 'common';
+const output = 'build';
+const coverageServer = 'coverage/server';
+const coverageClient = 'coverage/client';
 
 // helper method for resolving client paths
-let resolveToClient = (glob) => {
-  glob = glob || '';
-  return path.join(client, 'src', glob); // client/src/{glob}
-};
+const resolveToClient = (glob) => path.join(client, 'src', glob);
 
 // helper method for resolving server paths
-let resolveToServer = (glob) => {
-  glob = glob || '';
-  return path.join(server, glob); // server/{glob}
-};
+const resolveToServer = (glob) => path.join(server, glob || '');
 
-let resolveToCommon = (glob) => path.join(common, glob || '');
+const resolveToCommon = (glob) => path.join(common, glob || '');
 
 // map of all paths
-let paths = {
+const paths = {
   clientJS: resolveToClient('**/*.js'), // client js
   serverJS: resolveToServer('**/*.js'), // server js
   commonJS: resolveToCommon('**/*.js'),
   css: resolveToClient('**/*.css'),
   html: [
     resolveToClient('**/*.html'),
-    path.join(client, 'index.html')
+    path.join(client, 'index.html'),
   ],
-  output: output
+  output,
 };
 
 gulp.task('clean-build', (done) => rimraf(output, done));
@@ -56,7 +49,7 @@ gulp.task('eslint', () =>
     '!node_modules/**',
     '!coverage/**',
     '!build/**',
-    '!**/lb-services.js'
+    '!**/lb-services.js',
   ])
     .pipe(eslint())
     .pipe(eslint.format())
@@ -65,16 +58,16 @@ gulp.task('eslint', () =>
 
 gulp.task('test-client', ['clean-coverage:client'], (done) =>
   new Karma.Server({
-    configFile: __dirname + '/karma.conf.js',
-    singleRun: true
+    configFile: `${__dirname}/karma.conf.js`,
+    singleRun: true,
   }, done).start()
 );
 
 gulp.task('test-client:watch', ['clean-coverage:client'], (done) =>
   new Karma.Server({
-    configFile: __dirname + '/karma.conf.js',
+    configFile: `${__dirname}/karma.conf.js`,
     singleRun: false,
-    autoWatch: true
+    autoWatch: true,
   }, done).start()
 );
 
@@ -85,42 +78,46 @@ function runServerTests(mochaOptions) {
       resolveToCommon('**/*.js')
     )
   )
+    .pipe(plumber())
     .pipe(istanbul({ // Covering files
       instrumenter: Instrumenter,
-      includeUntested: true
+      includeUntested: true,
     }))
     .pipe(istanbul.hookRequire()) // Force `require` to return covered files
     .on('finish', () =>
-      gulp.src(resolveToServer('test/**/*.js'), {read: false})
+      gulp.src(resolveToServer('test/**/*.js'), { read: false })
         .pipe(mocha(Object.assign({}, mochaOptions,
           {
             recursive: true,
             compilers: {
-              js: babelRegister
-            }
+              js: babelRegister,
+            },
           }))
         )
         .pipe(istanbul.writeReports({
           dir: coverageServer,
-          reportOpts: {dir: coverageServer},
-          reporters: ['text', 'text-summary', 'json', 'html']
+          reportOpts: {
+            dir: coverageServer,
+          },
+          reporters: ['text', 'text-summary', 'json', 'html', 'cobertura'],
         }))
+        .pipe(exit())
     );
 }
 
-gulp.task('test-server:bamboo', () =>
+gulp.task('test-server:jenkins', () =>
   runServerTests({
-    reporter: 'mocha-bamboo-reporter',
+    reporter: 'mocha-junit-reporter',
     reporterOptions: {
-      output: 'coverage/unit.backend.json'
-    }
+      mochaFile: 'coverage/junit.backend.xml',
+    },
   })
 );
 
 gulp.task('test-server', ['clean-coverage:server'], () => runServerTests());
 
 gulp.task('test-server:watch', ['test-server'], () => {
-  let allPaths = [].concat(paths.serverJS, paths.commonJS);
+  const allPaths = [].concat(paths.serverJS, paths.commonJS);
   gulp.watch(allPaths, ['test-server']);
 });
 
@@ -131,8 +128,3 @@ gulp.task('clean-coverage:client', () => del([coverageClient]));
 gulp.task('test', (done) => {
   runSequence('eslint', 'test-server', 'test-client', done);
 });
-
-gulp.task('test:bamboo', (done) => {
-  runSequence('eslint', 'test-server:bamboo', 'test-client', done);
-});
-

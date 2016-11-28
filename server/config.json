@@ -22,16 +22,5 @@
   },
   "legacyExplorer": false,
   "aclErrorStatus": 403,
-  "cookieSecret": "Your secret cookie goes here",
-  "passportProviders": {
-    "local": {
-      "provider": "local",
-      "module": "passport-local",
-      "usernameField": "email",
-      "passwordField": "password",
-      "authPath": "/auth/login",
-      "successRedirect": "/auth/account",
-      "failureRedirect": "/"
-    }
-  }
+  "cookieSecret": "Your secret cookie goes here"
 }

@@ -1,10 +1,13 @@
 {
   "initial:before": {
-    "loopback#favicon": {},
-    "loopback#logger": {
-      "params": {
-        "format": "combined"
-      }
+    "loopback#favicon": {}
+  },
+  "initial": {
+    "morgan": {
+      "params": [
+        "combined",
+        {}
+      ]
     }
   },
   "final:after": {

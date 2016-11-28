@@ -1,5 +1,3 @@
-'use strict';
-
 import 'ramda';
 import 'moment';
 
@@ -15,22 +13,23 @@ import 'angular-ui-validate';
 import 'angular-resource';
 
 // Our modules
+// eslint-disable-next-line import/no-extraneous-dependencies, import/no-unresolved, import/extensions
+import CONSTANTS from 'server-shared/db-tables-types';
 import lbServices from './lb-services';
 
 import '../less/style.less';
-
-import CONSTANTS from 'server_shared/db-tables-types';
 
 console.log(CONSTANTS);
 
 function appConfig($urlRouterProvider) {
   'ngInject';
+
   $urlRouterProvider.otherwise('/');
 }
 
 angular
   .module('app', [
     lbServices,
-    uiRouter
+    uiRouter,
   ])
   .config(appConfig);

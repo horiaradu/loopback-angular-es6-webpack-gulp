@@ -1,30 +1,26 @@
 require('babel-register');
-require('dotenv').config({silent: true});
+require('dotenv').config({ silent: true });
 const loopback = require('loopback');
-var boot = require('loopback-boot');
-var path = require('path');
+const boot = require('loopback-boot');
 
-var app = module.exports = loopback();
+const app = module.exports = loopback();
 
-var version = require(path.resolve(__dirname, '../package.json')).version;
-app.version = version;
-
-app.use(loopback.static(path.resolve(__dirname, '../build')));
-
-app.start = function () {
+app.start = () =>
   // start the web server
-  return app.listen(function () {
+  app.listen(() => {
     app.emit('started');
-    var baseUrl = app.get('url').replace(/\/$/, '');
+    const baseUrl = app.get('url').replace(/\/$/, '');
     console.log('Web server listening at: %s', baseUrl);
     if (app.get('loopback-component-explorer')) {
-      var explorerPath = app.get('loopback-component-explorer').mountPath;
+      const explorerPath = app.get('loopback-component-explorer').mountPath;
       console.log('Browse your REST API at %s%s', baseUrl, explorerPath);
     }
-  });
-};
+  })
+;
 
-boot(app, __dirname, function (err) {
+// Bootstrap the application, configure models, datasources and middleware.
+// Sub-apps like REST API are mounted via boot scripts.
+boot(app, __dirname, (err) => {
   if (err) {
     throw err;
   }

@@ -1,51 +1,96 @@
 {
-  "extends": "eslint-config-defaults",
+  "extends": "airbnb-base",
+  "plugins": [
+    "mocha"
+  ],
+  "env": {
+    "es6": true,
+    "node": true
+  },
   "rules": {
-    "indent": [
-      2,
-      2,
+    "mocha/no-pending-tests": "warn",
+    "arrow-parens": "off",
+    "no-use-before-define": [
+      "error",
       {
-        "SwitchCase": 1
+        "functions": false,
+        "classes": true
       }
     ],
-    "quotes": [
-      2,
-      "single",
-      {
-        "avoidEscape": true
-      }
-    ],
-    "linebreak-style": [
-      2,
-      "unix"
-    ],
-    "semi": [
-      2,
-      "always"
-    ],
-    "no-console": 0,
     "no-unused-vars": [
       "error",
       {
         "args": "none"
       }
+    ],
+    "no-console": "off",
+    "radix": "off",
+    "no-else-return": "off",
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true
+      }
+    ],
+    "no-shadow": [
+      "error",
+      {
+        "allow": [
+          "done",
+          "err"
+        ]
+      }
+    ],
+    "no-unused-expressions": [
+      "error",
+      {
+        "allowShortCircuit": true
+      }
+    ],
+    "no-underscore-dangle": [
+      "error",
+      {
+        "allowAfterThis": true
+      }
+    ],
+    "max-len": [
+      "error",
+      120,
+      2,
+      {
+        "ignoreUrls": true,
+        "ignoreComments": false,
+        "ignoreRegExpLiterals": true,
+        "ignoreStrings": true,
+        "ignoreTemplateLiterals": true
+      }
+    ],
+    "indent": [
+      "error",
+      2,
+      {
+        "SwitchCase": 1,
+        "VariableDeclarator": 1,
+        "outerIIFEBody": 1,
+        "FunctionDeclaration": {
+          "parameters": "first",
+          "body": 1
+        },
+        "FunctionExpression": {
+          "parameters": "first",
+          "body": 1
+        }
+      }
+    ],
+    "comma-dangle": [
+      "error",
+      {
+        "arrays": "always-multiline",
+        "objects": "always-multiline",
+        "imports": "always-multiline",
+        "exports": "always-multiline",
+        "functions": "never"
+      }
     ]
-  },
-  "env": {
-    "es6": true,
-    "browser": true,
-    "node": true,
-    "mocha": true,
-    "jasmine": true
-  },
-  "globals": {
-    "angular": true,
-    "inject": true
-  },
-  "ecmaFeatures": {
-    "modules": true
-  },
-  "parserOptions": {
-    "sourceType": "module"
   }
 }

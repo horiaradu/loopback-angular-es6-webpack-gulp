@@ -1,0 +1,17 @@
+{
+  "extends": "../.eslintrc",
+  "env": {
+    "es6": true,
+    "browser": true,
+    "mocha": true
+  },
+  "globals": {
+    "angular": true,
+    "expect": true,
+    "inject": true,
+    "sinon": true
+  },
+  "rules": {
+    "no-unused-expressions": "off"
+  }
+}

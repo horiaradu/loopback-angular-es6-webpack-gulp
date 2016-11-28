@@ -2,11 +2,6 @@
   "initial:before": {
     "loopback#favicon": {
       "params": "$!../client/assets/favicon.ico"
-    },
-    "loopback#logger": {
-      "params": {
-        "format": "tiny"
-      }
     }
   },
   "initial": {
@@ -17,6 +12,12 @@
         "credentials": true,
         "maxAge": 86400
       }
+    },
+    "morgan": {
+      "params": [
+        "tiny",
+        {}
+      ]
     }
   },
   "session": {},
@@ -29,7 +30,11 @@
       ]
     }
   },
-  "files": {},
+  "files": {
+    "loopback#static": {
+      "params": "${clientBuild}"
+    }
+  },
   "final": {
     "loopback#urlNotFound": {}
   },

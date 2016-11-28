@@ -1,0 +1,16 @@
+{
+  "extends": "../../.eslintrc",
+  "plugins": [
+    "mocha"
+  ],
+  "env": {
+    "mocha": true
+  },
+  "globals": {
+    "sinon": true,
+    "expect": true
+  },
+  "rules": {
+    "no-unused-expressions": "off"
+  }
+}
